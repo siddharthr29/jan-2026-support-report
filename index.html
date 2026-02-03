@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --avni-teal: #3d9970;
+            --avni-teal-dark: #2d7a56;
+            --avni-teal-light: #5ab88a;
             --blue: #4285F4;
             --green: #34A853;
             --yellow: #FBBC04;
@@ -32,7 +35,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3d9970 0%, #2d7a56 100%);
             min-height: 100vh;
             color: var(--gray-800);
             line-height: 1.6;
@@ -125,7 +128,7 @@
         }
 
         .section h2 span {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3d9970 0%, #2d7a56 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -222,14 +225,14 @@
 
         /* Recommendations */
         .recommendations {
-            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
             border-radius: 12px;
             padding: 24px;
             margin-top: 24px;
         }
 
         .recommendations h3 {
-            color: var(--purple);
+            color: var(--avni-teal-dark);
             margin-bottom: 16px;
         }
 
@@ -295,9 +298,14 @@
 <body>
     <div class="container">
         <header>
-            <img src="avni-logo.svg" alt="Avni Logo" class="logo" onerror="this.style.display='none'">
+            <img src="avni-logo-name.png" alt="Avni" class="logo" style="width: 180px; height: auto;">
             <h1>January 2026 Support Report</h1>
             <p>Period: January 1-31, 2026</p>
+            <a href="https://docs.google.com/spreadsheets/d/1RM6sk4yOp4lWvZBVFYLUAxPjgFmWS5c5laOEJ0QPv7c/edit?gid=1851072145#gid=1851072145"
+               target="_blank"
+               style="display: inline-block; margin-top: 16px; padding: 10px 24px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); transition: background 0.2s;">
+                View Drilldown Details in Google Sheets
+            </a>
         </header>
 
         <!-- KPI Cards -->
@@ -539,7 +547,7 @@
 
         <footer>
             <p>Report generated on February 3, 2026</p>
-            <p>Data Source: Neon DB + Freshdesk API</p>
+            <p>Data verified from Freshdesk API</p>
         </footer>
     </div>
 </body>

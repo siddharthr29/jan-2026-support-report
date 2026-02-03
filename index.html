@@ -292,11 +292,120 @@
         @media print {
             body { background: white; }
             .section { box-shadow: none; border: 1px solid #ddd; }
+            .password-overlay { display: none !important; }
+        }
+
+        /* Password Lock */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3d9970 0%, #2d7a56 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-box img {
+            width: 150px;
+            margin-bottom: 24px;
+        }
+
+        .password-box h2 {
+            color: var(--gray-800);
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+
+        .password-box p {
+            color: var(--gray-600);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .password-box input:focus {
+            outline: none;
+            border-color: var(--avni-teal);
+        }
+
+        .password-box input.error {
+            border-color: var(--red);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .password-box button {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #3d9970 0%, #2d7a56 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .password-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 153, 112, 0.4);
+        }
+
+        .password-error {
+            color: var(--red);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .content-hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Password Protection Overlay -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-box">
+            <img src="avni-logo-name.png" alt="Avni">
+            <h2>Protected Report</h2>
+            <p>Enter password to view the January 2026 Support Report</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" onkeypress="if(event.key==='Enter')checkPassword()">
+            <button onclick="checkPassword()">Unlock Report</button>
+            <p class="password-error" id="passwordError">Incorrect password. Please try again.</p>
+        </div>
+    </div>
+
+    <div class="container content-hidden" id="mainContent">
         <header>
             <img src="avni-logo-name.png" alt="Avni" class="logo" style="width: 180px; height: auto;">
             <h1>January 2026 Support Report</h1>
@@ -550,5 +659,37 @@
             <p>Data verified from Freshdesk API</p>
         </footer>
     </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('passwordError');
+            const overlay = document.getElementById('passwordOverlay');
+            const content = document.getElementById('mainContent');
+
+            if (input.value === 'SayMyName') {
+                overlay.style.display = 'none';
+                content.classList.remove('content-hidden');
+                sessionStorage.setItem('reportUnlocked', 'true');
+            } else {
+                input.classList.add('error');
+                error.style.display = 'block';
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 500);
+            }
+        }
+
+        // Check if already unlocked in this session
+        if (sessionStorage.getItem('reportUnlocked') === 'true') {
+            document.getElementById('passwordOverlay').style.display = 'none';
+            document.getElementById('mainContent').classList.remove('content-hidden');
+        }
+
+        // Focus password input on load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
 </body>
 </html>

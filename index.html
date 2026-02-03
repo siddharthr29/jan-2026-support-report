@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>January 2026 Support Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #4285F4;
+            --green: #34A853;
+            --yellow: #FBBC04;
+            --red: #EA4335;
+            --purple: #9334E6;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15);
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .kpi-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .kpi-card.green .kpi-value { color: var(--green); }
+        .kpi-card.red .kpi-value { color: var(--red); }
+        .kpi-card.yellow .kpi-value { color: #d97706; }
+        .kpi-card.blue .kpi-value { color: var(--blue); }
+
+        /* Sections */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .section h2 span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Charts */
+        .chart-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 24px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        td:first-child {
+            font-weight: 500;
+        }
+
+        /* Insights */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .insight-card {
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .insight-card.positive {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 4px solid var(--green);
+        }
+
+        .insight-card.negative {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 4px solid var(--red);
+        }
+
+        .insight-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insight-card ul {
+            margin-left: 20px;
+            color: var(--gray-700);
+        }
+
+        .insight-card li {
+            margin-bottom: 8px;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .recommendations h3 {
+            color: var(--purple);
+            margin-bottom: 16px;
+        }
+
+        .recommendations ol {
+            margin-left: 20px;
+            color: var(--gray-700);
+        }
+
+        .recommendations li {
+            margin-bottom: 10px;
+        }
+
+        /* Product Intervention Table */
+        .intervention-table {
+            font-size: 0.9rem;
+        }
+
+        .intervention-table td:first-child {
+            color: var(--blue);
+            font-family: monospace;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-red { background: #fee2e2; color: var(--red); }
+        .badge-yellow { background: #fef3c7; color: #d97706; }
+        .badge-green { background: #d1fae5; color: #059669; }
+        .badge-blue { background: #dbeafe; color: var(--blue); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .kpi-value { font-size: 2rem; }
+            .section { padding: 20px; }
+            .chart-grid { grid-template-columns: 1fr; }
+            .insights-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="avni-logo.svg" alt="Avni Logo" class="logo" onerror="this.style.display='none'">
+            <h1>January 2026 Support Report</h1>
+            <p>Period: January 1-31, 2026</p>
+        </header>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card green">
+                <div class="kpi-value">98.1%</div>
+                <div class="kpi-label">Resolution Rate</div>
+            </div>
+            <div class="kpi-card blue">
+                <div class="kpi-value">54</div>
+                <div class="kpi-label">Tickets Created</div>
+            </div>
+            <div class="kpi-card red">
+                <div class="kpi-value">50%</div>
+                <div class="kpi-label">Urgent SLA Compliance</div>
+            </div>
+            <div class="kpi-card yellow">
+                <div class="kpi-value">4.3 days</div>
+                <div class="kpi-label">Avg Resolution Time</div>
+            </div>
+        </div>
+
+        <!-- Balance Section -->
+        <section class="section">
+            <h2><span>1.</span> Opening/Closing Balance</h2>
+            <div class="chart-grid">
+                <div>
+                    <table>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Opening Balance (Jan 1)</td><td><strong>69</strong> tickets</td></tr>
+                        <tr><td>Closing Balance (Jan 31)</td><td><strong>63</strong> tickets</td></tr>
+                        <tr><td>Net Change</td><td><span class="badge badge-green">-6 tickets</span></td></tr>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/01_balance.png" alt="Balance Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Volume Section -->
+        <section class="section">
+            <h2><span>2.</span> Ticket Volume</h2>
+            <div class="chart-grid">
+                <div>
+                    <table>
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Tickets Created</td><td><strong>54</strong></td></tr>
+                        <tr><td>Tickets Resolved</td><td><strong>53</strong></td></tr>
+                        <tr><td>Resolution Rate</td><td><span class="badge badge-green">98.1%</span></td></tr>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/02_volume.png" alt="Volume Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Companies -->
+        <section class="section">
+            <h2><span>3.</span> Top 5 Companies</h2>
+            <div class="chart-grid">
+                <div>
+                    <table>
+                        <tr><th>Rank</th><th>Company</th><th>Tickets</th></tr>
+                        <tr><td>1</td><td>APF</td><td><strong>9</strong></td></tr>
+                        <tr><td>2</td><td>JSS MP Sickle Cell</td><td><strong>8</strong></td></tr>
+                        <tr><td>3</td><td>Animedh Charitable Trust</td><td><strong>6</strong></td></tr>
+                        <tr><td>4</td><td>Goonj</td><td><strong>6</strong></td></tr>
+                        <tr><td>5</td><td>Hasiru Dala</td><td><strong>5</strong></td></tr>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/03_top_companies.png" alt="Top Companies Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Tags & Priority -->
+        <section class="section">
+            <h2><span>4.</span> Tags & Priority Distribution</h2>
+            <div class="chart-grid">
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--gray-700);">Top Tags</h3>
+                    <table>
+                        <tr><th>Tag</th><th>Count</th></tr>
+                        <tr><td>Implementation change</td><td><strong>15</strong></td></tr>
+                        <tr><td>User Knowledge</td><td><strong>8</strong></td></tr>
+                        <tr><td>product_intervention</td><td><strong>8</strong></td></tr>
+                        <tr><td>canbemadeproductfeature</td><td><strong>4</strong></td></tr>
+                        <tr><td>product_bug</td><td><strong>3</strong></td></tr>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/04_tags.png" alt="Tags Distribution">
+                </div>
+            </div>
+            <div class="chart-grid" style="margin-top: 32px;">
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--gray-700);">Priority Breakdown</h3>
+                    <table>
+                        <tr><th>Priority</th><th>Count</th><th>%</th></tr>
+                        <tr><td><span class="badge badge-red">Urgent</span></td><td>14</td><td>25.9%</td></tr>
+                        <tr><td><span class="badge badge-yellow">High</span></td><td>37</td><td>68.5%</td></tr>
+                        <tr><td><span class="badge badge-blue">Medium</span></td><td>2</td><td>3.7%</td></tr>
+                        <tr><td><span class="badge badge-green">Low</span></td><td>1</td><td>1.9%</td></tr>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/05_priority.png" alt="Priority Distribution">
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Intervention -->
+        <section class="section">
+            <h2><span>5.</span> Product Intervention Tickets</h2>
+            <p style="margin-bottom: 16px; color: var(--gray-600);"><strong>8 tickets</strong> requiring platform team involvement</p>
+            <table class="intervention-table">
+                <tr><th>Ticket ID</th><th>Subject</th></tr>
+                <tr><td>#7491</td><td>entering a number change automatically to other number</td></tr>
+                <tr><td>#7511</td><td>@jss - Phulwari Growth Monitoring visits not visible in metabase</td></tr>
+                <tr><td>#7465</td><td>Sync attribute for user not valid for update error</td></tr>
+                <tr><td>#7515</td><td>the app crash issues for the organisation CFSD</td></tr>
+                <tr><td>#7513</td><td>user id details missing in metabase table - observation checklist @jss</td></tr>
+                <tr><td>#7475</td><td>In the yearly report the numbers of Doctor Visits are showing less</td></tr>
+                <tr><td>#7376</td><td>Data edit - MMU clinic encounter Visit (Symptom column) - @jscs</td></tr>
+                <tr><td>#7398</td><td>Distribution report code not showing in avni</td></tr>
+            </table>
+        </section>
+
+        <!-- Resolution Time -->
+        <section class="section">
+            <h2><span>6.</span> Resolution Time Metrics</h2>
+            <div class="chart-grid">
+                <div>
+                    <table>
+                        <tr><th>Priority</th><th>Resolved</th><th>Avg Time</th></tr>
+                        <tr><td><span class="badge badge-red">Urgent</span></td><td>13</td><td>52.87 hrs (~2.2 days)</td></tr>
+                        <tr><td><span class="badge badge-yellow">High</span></td><td>25</td><td>132.76 hrs (~5.5 days)</td></tr>
+                        <tr><td><span class="badge badge-green">Low</span></td><td>1</td><td>22.99 hrs (~1 day)</td></tr>
+                    </table>
+                    <p style="margin-top: 16px; padding: 12px; background: var(--gray-50); border-radius: 8px;">
+                        <strong>Overall Average:</strong> 103.32 hours (~4.3 days)
+                    </p>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/06_resolution_time.png" alt="Resolution Time Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- SLA Compliance -->
+        <section class="section">
+            <h2><span>7.</span> SLA Compliance</h2>
+            <div class="chart-grid">
+                <div>
+                    <h3 style="font-size: 1rem; margin-bottom: 12px; color: var(--gray-700);">Urgent (Target: 8hr)</h3>
+                    <table>
+                        <tr><td>Total Resolved</td><td>14</td></tr>
+                        <tr><td>SLA Breaches</td><td><span class="badge badge-red">7</span></td></tr>
+                        <tr><td>Compliance Rate</td><td><strong>50.0%</strong></td></tr>
+                    </table>
+                    <h3 style="font-size: 1rem; margin: 20px 0 12px; color: var(--gray-700);">High Priority (Target: 168hr)</h3>
+                    <table>
+                        <tr><td>Total Resolved</td><td>35</td></tr>
+                        <tr><td>SLA Breaches</td><td><span class="badge badge-red">20</span></td></tr>
+                        <tr><td>Compliance Rate</td><td><strong>42.9%</strong></td></tr>
+                    </table>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/07_sla_compliance.png" alt="SLA Compliance Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Ticket Age -->
+        <section class="section">
+            <h2><span>8.</span> Open Ticket Age Analysis</h2>
+            <div class="chart-grid">
+                <div>
+                    <table>
+                        <tr><th>Age Bucket</th><th>Count</th><th>%</th></tr>
+                        <tr><td><span class="badge badge-green">0-7 days</span></td><td>8</td><td>14%</td></tr>
+                        <tr><td><span class="badge badge-green">8-30 days</span></td><td>10</td><td>17.5%</td></tr>
+                        <tr><td><span class="badge badge-yellow">31-60 days</span></td><td>8</td><td>14%</td></tr>
+                        <tr><td><span class="badge badge-red">61-90 days</span></td><td>6</td><td>10.5%</td></tr>
+                        <tr><td><span class="badge badge-red">90+ days</span></td><td>25</td><td>44%</td></tr>
+                    </table>
+                    <p style="margin-top: 16px; padding: 12px; background: #fee2e2; border-radius: 8px; color: var(--red);">
+                        <strong>31 tickets</strong> older than 60 days need attention
+                    </p>
+                </div>
+                <div class="chart-container">
+                    <img src="charts/08_ticket_age.png" alt="Ticket Age Chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insights -->
+        <section class="section">
+            <h2><span>9.</span> Key Insights</h2>
+            <div class="insights-grid">
+                <div class="insight-card positive">
+                    <h3>Positives</h3>
+                    <ul>
+                        <li>Resolution rate of <strong>98.1%</strong> indicates good throughput</li>
+                        <li>Net reduction of <strong>6 open tickets</strong> shows backlog reduction</li>
+                    </ul>
+                </div>
+                <div class="insight-card negative">
+                    <h3>Areas of Concern</h3>
+                    <ul>
+                        <li><strong>SLA Compliance is Low:</strong> 50% for Urgent, 42.9% for High</li>
+                        <li><strong>Avg Resolution Time:</strong> 103 hours (~4.3 days) is high</li>
+                        <li><strong>31 long-stuck tickets</strong> (>60 days) need attention</li>
+                        <li><strong>8 product intervention tickets</strong> requiring platform team</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="recommendations">
+                <h3>Recommendations</h3>
+                <ol>
+                    <li>Review urgent ticket handling process (50% SLA breach rate)</li>
+                    <li>Triage and action the 31 long-stuck tickets</li>
+                    <li>Investigate root causes for the 8 product intervention tickets</li>
+                    <li>Consider setting up alerts for tickets approaching SLA deadlines</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- KPI Dashboard Image -->
+        <section class="section">
+            <h2><span>10.</span> Summary Dashboard</h2>
+            <div class="chart-container">
+                <img src="charts/09_kpi_dashboard.png" alt="KPI Dashboard" style="max-width: 800px;">
+            </div>
+        </section>
+
+        <footer>
+            <p>Report generated on February 3, 2026</p>
+            <p>Data Source: Neon DB + Freshdesk API</p>
+        </footer>
+    </div>
+</body>
+</html>
